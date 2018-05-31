@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
         page: 'login'
     };
     res.render('admin/login', opt);
-});
+})
+;
 
 router.get('/dashboard', User.checkAuth, (req, res) => {
     let opt = {
@@ -19,7 +20,8 @@ router.get('/dashboard', User.checkAuth, (req, res) => {
         user: req.user
     };
     res.render('admin/dashboard', opt);
-});
+})
+;
 
 router.get('/categories', User.checkAuth, (req, res) => {
     let opt = {
@@ -33,9 +35,11 @@ router.get('/categories', User.checkAuth, (req, res) => {
             opt.categories = data;
             res.render('admin/categories', opt);
         }
-    });
+    })
+    ;
 
-});
+})
+;
 
 router.get('/addcategorie', User.checkAuth, (req, res) => {
     let opt = {
@@ -43,7 +47,8 @@ router.get('/addcategorie', User.checkAuth, (req, res) => {
         user: req.user
     };
     res.render('admin/addcategorie', opt);
-});
+})
+;
 
 router.get('/editcategory/:id', User.checkAuth, (req, res) => {
     let opt = {
@@ -58,33 +63,67 @@ router.get('/editcategory/:id', User.checkAuth, (req, res) => {
             opt.categorie = data;
             res.render('admin/addcategorie', opt);
         }
-    });
-});
+    })
+    ;
+})
+;
 
-router.get('/posts', User.checkAuth, (req,res)=>{
+router.get('/posts', User.checkAuth, (req, res) => {
     let opt = {
         page: 'posts',
         user: req.user
     };
     let page = req.query.page ? req.query.page : 1;
-    Posts.getAll(page,(err,blogposts)=>{
-        if(err){
+    Posts.getAll(page, (err, blogposts) => {
+        if (err) {
             console.log(err);
         } else {
             opt.posts = blogposts;
-            Posts.count((err,count)=>{
-                if(err){
+            Posts.count((err, count) => {
+                if (err) {
                     console.log(err);
-                }else{
-                    let paginator = pagination.create('search', {prelink:'/admin/posts/', current: page, rowsPerPage: 7, totalResult: count});
-                    opt.pagination = paginator.render();
-                    res.render('admin/posts',opt);
+                } else {
+                    var boostrapPaginator = new pagination.TemplatePaginator({
+                        prelink:'/admin/posts/', current: page, rowsPerPage: 7,
+                        totalResult: count, slashSeparator: false,
+                        template: function(result) {
+                            var i, len, prelink;
+                            var html = '<div><ul class="pagination">';
+                            if(result.pageCount < 2) {
+                                html += '</ul></div>';
+                                return html;
+                            }
+                            prelink = this.preparePreLink(result.prelink);
+                            if(result.previous) {
+                                html += '<li><a href="' + prelink + result.previous + '">' + this.options.translator('PREVIOUS') + '</a></li>';
+                            }
+                            if(result.range.length) {
+                                for( i = 0, len = result.range.length; i < len; i++) {
+                                    if(result.range[i] === result.current) {
+                                        html += '<li class="active"><a href="' + prelink + result.range[i] + '">' + result.range[i] + '</a></li>';
+                                    } else {
+                                        html += '<li><a href="' + prelink + result.range[i] + '">' + result.range[i] + '</a></li>';
+                                    }
+                                }
+                            }
+                            if(result.next) {
+                                html += '<li><a href="' + prelink + result.next + '" class="paginator-next">' + this.options.translator('NEXT') + '</a></li>';
+                            }
+                            html += '</ul></div>';
+                            return html;
+                        }
+                    });
+                    opt.pagination = boostrapPaginator.render();
+                    res.render('admin/posts', opt);
                 }
-            });
-            
+            })
+            ;
+
         }
-    });
-});
+    })
+    ;
+})
+;
 
 
 // post requests
@@ -93,12 +132,14 @@ router.post('/addcategorie', User.checkAuth, Categorie.addCategorie);
 
 router.post('/editcategorie', User.checkAuth, (req, res) => {
     Categorie.editCategorie(req, res);
-});
+})
+;
 
 //delete requests
 
 router.delete('/removecategory', User.checkAuth, (req, res) => {
     Categorie.removeCategory(req, res);
-});
+})
+;
 
 module.exports = router;
