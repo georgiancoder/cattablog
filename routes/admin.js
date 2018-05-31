@@ -60,6 +60,14 @@ router.get('/editcategory/:id', User.checkAuth, (req, res) => {
     });
 });
 
+router.get('/posts', User.checkAuth, (req,res)=>{
+    let opt = {
+        page: 'posts',
+        user: req.user
+    };
+    res.render('admin/posts',opt);
+});
+
 
 // post requests
 router.post('/login', User.adminLogin);
