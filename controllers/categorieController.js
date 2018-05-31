@@ -77,4 +77,4 @@ class Categorie {
   }
 }
 
-module.exports = Categorie;
+module.exports = new Categorie();

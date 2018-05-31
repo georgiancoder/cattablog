@@ -1,109 +1,87 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>admin</title>
-	<meta charset="utf-8">
-	  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-	  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	  <meta name="description" content="Prime Bootstrap 4 Admin Template">
-	  <meta name="author" content="Lukasz Holeczek">
-	  <meta name="keyword" content="Prime Bootstrap 4 Admin Template">
-	  <link href="/admin/css/font-awesome.min.css" rel="stylesheet">
-	  <link href="/admin/css/flag-icon.min.css" rel="stylesheet">
-  	<link href="/admin/css/simple-line-icons.min.css" rel="stylesheet">
-  	<link href="/admin/css/select2.min.css" rel="stylesheet">
-  	<link href="/admin/css/quill.snow.min.css" rel="stylesheet">
-  	<link href="/admin/css/style.css" rel="stylesheet">
+    <title>admin</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Prime Bootstrap 4 Admin Template">
+    <meta name="author" content="Lukasz Holeczek">
+    <meta name="keyword" content="Prime Bootstrap 4 Admin Template">
+    <link href="/admin/css/font-awesome.min.css" rel="stylesheet">
+    <link href="/admin/css/flag-icon.min.css" rel="stylesheet">
+    <link href="/admin/css/simple-line-icons.min.css" rel="stylesheet">
+    <link href="/admin/css/select2.min.css" rel="stylesheet">
+    <link href="/admin/css/quill.snow.min.css" rel="stylesheet">
+    <link href="/admin/css/style.css" rel="stylesheet">
 </head>
-<body <% if(page && page == 'login'){ %> class="app flex-row align-items-center" <% } else { %> class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden" <% } %>  >
+<body
+        <% if(page && page == 'login'){ %>
+        class="app flex-row align-items-center"
+        <% } else { %>
+        class="app header-fixed sidebar-fixed aside-menu-fixed aside-menu-hidden"
+        <% } %>
+>
 
 <% if(page && page != 'login'){ %>
 
 <header class="app-header navbar">
     <button class="navbar-toggler mobile-sidebar-toggler d-lg-none" type="button">
-      <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
     <a class="navbar-brand" href="#"></a>
     <button class="navbar-toggler sidebar-toggler d-md-down-none" type="button">
-      <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon"></span>
     </button>
     <ul class="nav navbar-nav d-md-down-none mr-auto">
 
-      <li class="nav-item px-3">
-        <a class="nav-link" href="/admin/dashboard">Dashboard</a>
-      </li>
+        <li class="nav-item px-3">
+            <a class="nav-link" href="/admin/dashboard">Dashboard</a>
+        </li>
     </ul>
     <ul class="nav navbar-nav ml-auto">
-      <li class="nav-item dropdown">
-        <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-        	<% if(user){ %>
-        		<%= user.name %>
-        	<% } %>
-        </a>
-        <div class="dropdown-menu dropdown-menu-right">
-          <div class="dropdown-header text-center">
-            <strong>Account</strong>
-          </div>
-          <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
-          <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
-          <div class="divider"></div>
-          <a class="dropdown-item" href="/admin/logout"><i class="fa fa-lock"></i> Logout</a>
-        </div>
-      </li>
+        <li class="nav-item dropdown">
+            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+               aria-expanded="false">
+                <% if(user){ %>
+                <%= user.name %>
+                <% } %>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-header text-center">
+                    <strong>Account</strong>
+                </div>
+                <a class="dropdown-item" href="#"><i class="fa fa-user"></i> Profile</a>
+                <a class="dropdown-item" href="#"><i class="fa fa-wrench"></i> Settings</a>
+                <div class="divider"></div>
+                <a class="dropdown-item" href="/admin/logout"><i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
 
     </ul>
-  </header>
-	<div class="app-body">
-		<div class="sidebar">
-	      <nav class="sidebar-nav">
-	        <ul class="nav">
-	          <li class="nav-item">
-	            <a class="nav-link" href="/admin/dashboard"><i class="icon-speedometer"></i> Dashboard</a>
-	          </li>
+</header>
+<div class="app-body">
+    <div class="sidebar">
+        <nav class="sidebar-nav">
+            <ul class="nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/dashboard"><i class="icon-speedometer"></i> DASHBOARD</a>
+                </li>
 
-	          <li class="nav-title">
-	            Categories
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/categories"><i class="fa fa-sitemap"></i> all categorie</a>
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/addcategorie"><i class="fa fa-plus-square"></i> add categorie</a>
-	          </li>
-	          <li class="divider"></li>
-	          <li class="nav-title">
-	          	Movies
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/movies"><i class="fa fa-file-movie-o"></i>all movie</a>
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/addmovie"><i class="fa fa-plus-square"></i> add movie</a>
-	          </li>
-	          <li class="divider"></li>
-	          <li class="nav-title">
-	          	Directors
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/directors"><i class="fa fa-user"></i> all director</a>
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/adddirector"><i class="fa fa-plus-square"></i> add director</a>
-	          </li>
-	          <li class="divider"></li>
-	          <li class="nav-title">
-	          	Actors
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/actors"><i class="fa fa-user-secret"></i>all actors</a>
-	          </li>
-	          <li class="nav-item">
-	          	<a class="nav-link" href="/admin/addactor"><i class="fa fa-plus-square"></i> add actor</a>
-	          </li>
-	        </ul>
-	      </nav>
-	      <button class="sidebar-minimizer brand-minimizer" type="button"></button>
-	    </div>
-	    <!-- Main content -->
-    	<main class="main">
-<% } %>
+                <li class="nav-title">
+                    CATEGORIES
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/categories"><i class="fa fa-sitemap"></i> ALL CATEGORIE</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/admin/addcategorie"><i class="fa fa-plus-square"></i> ADD CATEGORIE</a>
+                </li>
+                
+            </ul>
+        </nav>
+        <button class="sidebar-minimizer brand-minimizer" type="button"></button>
+    </div>
+    <!-- Main content -->
+    <main class="main">
+        <% } %>
