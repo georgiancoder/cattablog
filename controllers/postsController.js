@@ -1,8 +1,12 @@
 const posts = require('../models/posts');
 
 class Posts {
-	getAll(cb){
-		posts.getAll(cb);
+	getAll(page,cb){
+		posts.getAll(page,cb);
+	}
+
+	count(cb){
+		posts.countall(cb);
 	}
 }
 

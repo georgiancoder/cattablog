@@ -39,7 +39,12 @@ const blogpostSchema = mongoose.Schema({
 module.exports = mongoose.model("blogpost",blogpostSchema);
 
 
-module.exports.getAll = function(cb){
+module.exports.getAll = function(page,cb){
 	let post = this;
-	post.find(cb);
+	post.find(cb).skip(page*7).limit(7).sort('createdate');
+}
+
+module.exports.countall = function(cb){
+  let post = this;
+  post.count(cb);
 }

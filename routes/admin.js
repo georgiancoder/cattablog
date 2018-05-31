@@ -3,6 +3,7 @@ const router = express.Router();
 const Categorie = require('../controllers/categorieController');
 const User = require('../controllers/usersController');
 const Posts = require('../controllers/postsController');
+const pagination = require('pagination');
 
 // get requests
 router.get('/', (req, res) => {
@@ -65,12 +66,22 @@ router.get('/posts', User.checkAuth, (req,res)=>{
         page: 'posts',
         user: req.user
     };
-    Posts.getAll((err,blogposts)=>{
+    let page = req.query.page ? req.query.page : 1;
+    Posts.getAll(page,(err,blogposts)=>{
         if(err){
             console.log(err);
         } else {
             opt.posts = blogposts;
-            res.render('admin/posts',opt);
+            Posts.count((err,count)=>{
+                if(err){
+                    console.log(err);
+                }else{
+                    let paginator = pagination.create('search', {prelink:'/admin/posts/', current: page, rowsPerPage: 7, totalResult: count});
+                    opt.pagination = paginator.render();
+                    res.render('admin/posts',opt);
+                }
+            });
+            
         }
     });
 });

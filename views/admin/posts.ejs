@@ -9,6 +9,7 @@
 					<th>Image:</th>
 					<th>Title:</th>
 					<th>Description:</th>
+					<th>Hide:</th>
 					<th>Action:</th>
 				</tr>
 			</thead>
@@ -25,12 +26,16 @@
 							<%= post.desc.ru %>
 						</td>
 						<td>
+							<%= post.hide %>
+						</td>
+						<td>
 							<a href="">edit</a> <button class="btn btn-sm btn-outline-danger" type="button">delete</button>
 						</td>
 					</tr>
 				<% }); %>
 			</tbody>
 			</table>
+			<%- pagination %>
 		</div>
 	</div>
 
