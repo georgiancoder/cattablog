@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Categorie = require('../controllers/categorieController');
 const User = require('../controllers/usersController');
-
+const Posts = require('../controllers/postsController');
 
 // get requests
 router.get('/', (req, res) => {
@@ -65,7 +65,14 @@ router.get('/posts', User.checkAuth, (req,res)=>{
         page: 'posts',
         user: req.user
     };
-    res.render('admin/posts',opt);
+    Posts.getAll((err,blogposts)=>{
+        if(err){
+            console.log(err);
+        } else {
+            opt.posts = blogposts;
+            res.render('admin/posts',opt);
+        }
+    });
 });
 
 
