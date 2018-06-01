@@ -1,0 +1,99 @@
+<%- include('header') %>
+
+<div class="container-fluid">
+	<div class="card mt-3">
+		<form>
+		<div class="card-header">
+			<h4>ADD POST</h4>
+		</div>
+		<div class="card-body">
+			<div class="row">
+				<div class="form-group col-sm-3">
+					<input type="file" class="form-control">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-3">
+					<input type="text" class="form-control" placeholder="заглавие">
+				</div>
+				<div class="form-group col-sm-3">
+					<input type="text" class="form-control" placeholder="источник">
+				</div>
+				<div class="form-group col-sm-3">
+					<input type="text" class="form-control" placeholder="лицензия">
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-6">
+					<textarea class="form-control" placeholder="небольшое описание"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-12">
+					<label>длинное описание</label>
+					<div id="content" style="height: auto;"></div>
+					<textarea id="contentref" class="d-none"></textarea>
+				</div>
+			</div>
+			<div class="row">
+				<div class="form-group col-sm-3">
+					<label for="categories">категории:</label>
+					<% if(categories != undefined) { %>
+					<select id="categories" name="categories" class="form-control" multiple>
+								<% for(var i=0; i<categories.length; i++) {%>
+								   <option value="<%= categories[i]._id %>"><%= categories[i].title %></option>
+								<% } %>
+							</select>
+					<% } %>
+				</div>
+				<div class="form-group col-sm-3 d-flex align-items-end">
+					<div class="custom-control custom-checkbox">
+					    <input type="checkbox" class="custom-control-input" name="hide" id="hide">
+					    <label class="custom-control-label" for="hide">Hide Post</label>
+					  </div>
+				</div>
+			</div>
+		</div>
+		<div class="card-footer">
+			<button type="submit" class="btn btn-success">добавить категорию</button>
+			<button type="reset" class="btn btn-danger">сброс</button>
+		</div>
+		</form>
+	</div>
+</div>
+
+
+<script>
+	window.onload = function(){
+		var toolbarOptions = [
+	    ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+	    ['blockquote', 'code-block'],
+	    [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+	    [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+	    [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+	    [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+	    [{ 'direction': 'rtl' }],                         // text direction
+	    [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+	    [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+	    [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+	    [{ 'font': [] }],
+	    [{ 'align': [] }],
+	    ['clean']                                         // remove formatting button
+	  ];
+		var quill = new Quill('#content', {
+	    modules: {
+	      toolbar: toolbarOptions
+	    },
+	    theme: 'snow'
+	  });
+
+		$("#categories").select2({
+	  	theme: "bootstrap",
+    	placeholder: "--выберите категорию--",
+    	allowClear: true
+	  });
+	}
+	
+</script>
+
+<%- include('footer') %>

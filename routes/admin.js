@@ -123,6 +123,20 @@ router.get('/posts', User.checkAuth, (req, res) => {
     ;
 });
 
+router.get('/addpost', User.checkAuth, (req,res)=>{
+    let opt = {
+        page: 'addpost',
+        user: req.user
+    };
+    Categorie.getCategories((err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            opt.categories = data;
+            res.render('admin/addpost',opt);
+        }
+    });
+});
 
 // post requests
 router.post('/login', User.adminLogin);
