@@ -11,8 +11,7 @@ router.get('/', (req, res) => {
         page: 'login'
     };
     res.render('admin/login', opt);
-})
-;
+});
 
 router.get('/dashboard', User.checkAuth, (req, res) => {
     let opt = {
@@ -20,8 +19,7 @@ router.get('/dashboard', User.checkAuth, (req, res) => {
         user: req.user
     };
     res.render('admin/dashboard', opt);
-})
-;
+});
 
 router.get('/categories', User.checkAuth, (req, res) => {
     let opt = {
@@ -35,11 +33,14 @@ router.get('/categories', User.checkAuth, (req, res) => {
             opt.categories = data;
             res.render('admin/categories', opt);
         }
-    })
-    ;
+    });
 
+});
+
+router.get('/logout',(req,res)=>{
+    req.logout();
+    res.redirect('/admin');
 })
-;
 
 router.get('/addcategorie', User.checkAuth, (req, res) => {
     let opt = {
@@ -47,8 +48,7 @@ router.get('/addcategorie', User.checkAuth, (req, res) => {
         user: req.user
     };
     res.render('admin/addcategorie', opt);
-})
-;
+});
 
 router.get('/editcategory/:id', User.checkAuth, (req, res) => {
     let opt = {
@@ -63,10 +63,9 @@ router.get('/editcategory/:id', User.checkAuth, (req, res) => {
             opt.categorie = data;
             res.render('admin/addcategorie', opt);
         }
-    })
-    ;
-})
-;
+    });
+    
+});
 
 router.get('/posts', User.checkAuth, (req, res) => {
     let opt = {
@@ -122,8 +121,7 @@ router.get('/posts', User.checkAuth, (req, res) => {
         }
     })
     ;
-})
-;
+});
 
 
 // post requests
@@ -132,14 +130,12 @@ router.post('/addcategorie', User.checkAuth, Categorie.addCategorie);
 
 router.post('/editcategorie', User.checkAuth, (req, res) => {
     Categorie.editCategorie(req, res);
-})
-;
+});
 
 //delete requests
 
 router.delete('/removecategory', User.checkAuth, (req, res) => {
     Categorie.removeCategory(req, res);
-})
-;
+});
 
 module.exports = router;
