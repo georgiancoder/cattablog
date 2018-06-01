@@ -40,7 +40,7 @@ router.get('/categories', User.checkAuth, (req, res) => {
 router.get('/logout',(req,res)=>{
     req.logout();
     res.redirect('/admin');
-})
+});
 
 router.get('/addcategorie', User.checkAuth, (req, res) => {
     let opt = {
@@ -151,6 +151,10 @@ router.post('/editcategorie', User.checkAuth, (req, res) => {
 
 router.delete('/removecategory', User.checkAuth, (req, res) => {
     Categorie.removeCategory(req, res);
+});
+
+router.delete('/removepost',User.checkAuth,(req,res)=>{
+    Posts.deletePost(req,res);
 });
 
 module.exports = router;

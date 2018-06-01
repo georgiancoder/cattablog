@@ -62,14 +62,19 @@ module.exports.addNew = function(data, cb) {
 
     newPost.save(cb);
 
-}
+};
 
 module.exports.getAll = function(page, cb) {
     let post = this;
     post.find(cb).skip(page * 7).sort({createdate: -1}).limit(7);
-}
+};
+
+module.exports.removePost = function(id,cb){
+    let post = this;
+    post.findByIdAndRemove(id,cb);
+};
 
 module.exports.countall = function(cb) {
     let post = this;
     post.count(cb);
-}
+};

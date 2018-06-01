@@ -67,6 +67,23 @@ class Posts {
         });
 
     }
+
+    deletePost(req,res){
+        req.checkBody('id','id is required').notEmpty();
+        req.getValidationResult().then(result =>{
+            if(!result.isEmpty()){
+                res.json(result.array());
+            }else{
+                posts.removePost(req.body.id,(err,post)=>{
+                    if(err){
+                        console.log(err);
+                    } else {
+                        res.json({success: true});
+                    }
+                });
+            }
+        })
+    }
 }
 
 module.exports = new Posts();

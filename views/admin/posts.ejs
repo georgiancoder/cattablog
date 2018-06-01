@@ -1,42 +1,43 @@
 <%- include('./header') %>
 
-	<div class="container-fluid">
-		<h4>POSTS</h4>
-		<div class="table-responsive">
-			<table class="table table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th>Image:</th>
-					<th>Title:</th>
-					<th>Description:</th>
-					<th>Hide:</th>
-					<th>Action:</th>
-				</tr>
-			</thead>
-			<tbody>
-				<% posts.forEach(function(post){ %>
-					<tr>
-						<td>
-							<img src="<%= post.mainpic.url %>" width="80" height="80" style="object-fit: cover;">
-						</td>
-						<td>
-							<%= post.title.ru %>
-						</td>
-						<td>
-							<%= post.desc.ru %>
-						</td>
-						<td>
-							<%= post.hide %>
-						</td>
-						<td>
-							<a href="">edit</a> <button class="btn btn-sm btn-outline-danger" type="button">delete</button>
-						</td>
-					</tr>
-				<% }); %>
-			</tbody>
-			</table>
-			<%- pagination %>
-		</div>
-	</div>
+<div class="container-fluid">
+    <h4>POSTS</h4>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead class="thead-dark">
+            <tr>
+                <th>Image:</th>
+                <th>Title:</th>
+                <th>Description:</th>
+                <th>Hide:</th>
+                <th>Action:</th>
+            </tr>
+            </thead>
+            <tbody>
+            <% posts.forEach(function(post){ %>
+            <tr>
+                <td>
+                    <img src="<%= post.mainpic.url %>" width="80" height="80" style="object-fit: cover;">
+                </td>
+                <td>
+                    <%= post.title.ru %>
+                </td>
+                <td>
+                    <%= post.desc.ru %>
+                </td>
+                <td>
+                    <%= post.hide %>
+                </td>
+                <td>
+                    <a href="">edit</a>
+                    <button class="btn btn-sm btn-outline-danger" onclick="deletePost('<%= post._id %>')" type="button">delete</button>
+                </td>
+            </tr>
+            <% }); %>
+            </tbody>
+        </table>
+        <%- pagination %>
+    </div>
+</div>
 
 <%- include('./footer') %>

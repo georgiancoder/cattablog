@@ -23,3 +23,16 @@ function deleteCategory(id){
     }
   })
 }
+
+function deletePost(id) {
+    $.ajax({
+        url: '/admin/removepost',
+        data: {id: id},
+        type: 'DELETE',
+        success: function(msg){
+            if(msg && msg.success){
+                location.reload();
+            }
+        }
+    });
+}
