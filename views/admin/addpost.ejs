@@ -2,37 +2,38 @@
 
 <div class="container-fluid">
 	<div class="card mt-3">
-		<form>
+		<form action="/admin/addpost" id="postaddform" method="POST" enctype="multipart/form-data">
+		<input type="hidden" name="author" value="<%= user.name %>">
 		<div class="card-header">
 			<h4>ADD POST</h4>
 		</div>
 		<div class="card-body">
 			<div class="row">
 				<div class="form-group col-sm-3">
-					<input type="file" class="form-control">
+					<input type="file" name="mainpic" class="form-control">
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-sm-3">
-					<input type="text" class="form-control" placeholder="заглавие">
+					<input type="text" name="title" class="form-control" placeholder="заглавие" required>
 				</div>
 				<div class="form-group col-sm-3">
-					<input type="text" class="form-control" placeholder="источник">
+					<input type="text" name="source" class="form-control" placeholder="источник">
 				</div>
 				<div class="form-group col-sm-3">
-					<input type="text" class="form-control" placeholder="лицензия">
+					<input type="text" name="license" class="form-control" placeholder="лицензия">
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-sm-6">
-					<textarea class="form-control" placeholder="небольшое описание"></textarea>
+					<textarea class="form-control" name="desc" placeholder="небольшое описание" required></textarea>
 				</div>
 			</div>
 			<div class="row">
 				<div class="form-group col-sm-12">
 					<label>длинное описание</label>
 					<div id="content" style="height: auto;"></div>
-					<textarea id="contentref" class="d-none"></textarea>
+					<textarea id="contentref" name="content" class="d-none"></textarea>
 				</div>
 			</div>
 			<div class="row">
@@ -86,6 +87,10 @@
 	    },
 	    theme: 'snow'
 	  });
+
+		 $('#postaddform').submit(function() {
+		  $("#contentref").val($(".ql-editor").html());
+		});
 
 		$("#categories").select2({
 	  	theme: "bootstrap",

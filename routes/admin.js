@@ -72,7 +72,7 @@ router.get('/posts', User.checkAuth, (req, res) => {
         page: 'posts',
         user: req.user
     };
-    let page = req.query.page ? req.query.page : 1;
+    let page = req.query.page ? req.query.page : 0;
     Posts.getAll(page, (err, blogposts) => {
         if (err) {
             console.log(err);
@@ -98,10 +98,10 @@ router.get('/posts', User.checkAuth, (req, res) => {
                             }
                             if(result.range.length) {
                                 for( i = 0, len = result.range.length; i < len; i++) {
-                                    if(result.range[i] === result.current) {
-                                        html += '<li class="active"><a href="' + prelink + result.range[i] + '">' + result.range[i] + '</a></li>';
+                                    if(result.range[i]-1 === result.current) {
+                                        html += '<li class="active"><a href="' + prelink + (result.range[i]-1) + '">' + (result.range[i]) + '</a></li>';
                                     } else {
-                                        html += '<li><a href="' + prelink + result.range[i] + '">' + result.range[i] + '</a></li>';
+                                        html += '<li><a href="' + prelink + (result.range[i]-1) + '">' + (result.range[i]) + '</a></li>';
                                     }
                                 }
                             }
@@ -141,6 +141,7 @@ router.get('/addpost', User.checkAuth, (req,res)=>{
 // post requests
 router.post('/login', User.adminLogin);
 router.post('/addcategorie', User.checkAuth, Categorie.addCategorie);
+router.post('/addpost',User.checkAuth,Posts.addNew);
 
 router.post('/editcategorie', User.checkAuth, (req, res) => {
     Categorie.editCategorie(req, res);
