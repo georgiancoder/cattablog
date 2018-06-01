@@ -41,8 +41,8 @@ class Posts {
                 if (req.file) {
                     req.body.mainpic = {};
                     req.body.mainpic.url = '/uploads/' + req.file.filename;
-                    req.body.mainpic.source = req.body.source;
-                    req.body.mainpic.license = req.body.license;
+                    req.body.mainpic.sourcelink = req.body.source;
+                    req.body.mainpic.licenselink = req.body.license;
                 }
 
                 req.checkBody('title', 'title is required').notEmpty();
@@ -83,6 +83,12 @@ class Posts {
                 });
             }
         })
+    }
+
+    getPostById(id,cb){
+        if(id){
+            posts.getById(id,cb);
+        }
     }
 }
 

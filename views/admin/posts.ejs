@@ -29,7 +29,7 @@
                     <%= post.hide %>
                 </td>
                 <td>
-                    <a href="">edit</a>
+                    <a href="/admin/editpost/<%= post._id %>" class="btn btn-sm btn-outline-blue">edit</a>
                     <button class="btn btn-sm btn-outline-danger" onclick="deletePost('<%= post._id %>')" type="button">delete</button>
                 </td>
             </tr>

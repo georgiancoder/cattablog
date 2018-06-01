@@ -138,6 +138,29 @@ router.get('/addpost', User.checkAuth, (req,res)=>{
     });
 });
 
+router.get('/editpost/:id',User.checkAuth,(req,res)=>{
+    let opt = {
+        page: 'editpost',
+        user: req.user
+    };
+    let id = req.params.id ? req.params.id : null;
+    Categorie.getCategories((err, data) => {
+        if (err) {
+            console.log(err);
+        } else {
+            opt.categories = data;
+            Posts.getPostById(id,(err,post)=>{
+                if(err){
+                    console.log(err);
+                } else {
+                    opt.post = post;
+                    res.render('admin/addpost',opt);
+                }
+            });
+        }
+    });
+});
+
 // post requests
 router.post('/login', User.adminLogin);
 router.post('/addcategorie', User.checkAuth, Categorie.addCategorie);

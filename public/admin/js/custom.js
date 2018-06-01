@@ -36,3 +36,7 @@ function deletePost(id) {
         }
     });
 }
+
+function deletePostMainImg(id) {
+    
+}

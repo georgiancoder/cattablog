@@ -18,8 +18,8 @@ const blogpostSchema = mongoose.Schema({
     },
     mainpic: {
         url: String,
-        source: String,
-        license: String,
+        licenselink: String,
+        sourcelink: String,
     },
     slug: {
         en: { type: String },
@@ -67,6 +67,11 @@ module.exports.addNew = function(data, cb) {
 module.exports.getAll = function(page, cb) {
     let post = this;
     post.find(cb).skip(page * 7).sort({createdate: -1}).limit(7);
+};
+
+module.exports.getById = function(id,cb){
+  let post = this;
+  post.findById(id,cb);
 };
 
 module.exports.removePost = function(id,cb){

@@ -2,6 +2,7 @@
 
 <div class="container-fluid">
 	<div class="card mt-3">
+		<% if(page == 'addpost') { %>
 		<form action="/admin/addpost" id="postaddform" method="POST" enctype="multipart/form-data">
 		<input type="hidden" name="author" value="<%= user.name %>">
 		<div class="card-header">
@@ -60,6 +61,76 @@
 			<button type="reset" class="btn btn-danger">сброс</button>
 		</div>
 		</form>
+		<% } else if(page == 'editpost') { %>
+		<form action="/admin/editpost" id="postaddform" method="POST" enctype="multipart/form-data">
+			<input type="hidden" name="author" value="<%= user.name %>">
+			<input type="hidden" name="id" value="<%= post._id %>">
+			<div class="card-header">
+				<h4>EDIT POST</h4>
+			</div>
+			<div class="card-body">
+				<div class="row">
+					<div class="form-group col-sm-3">
+						<% if(post.mainpic.url && post.mainpic.url.length > 0){ %>
+						<img src="<%= post.mainpic.url %>" width="200">
+						<button type="button" class="btn btn-danger" onclick="deletePostMainImg('<%= post._id %>')">Delete Main Image</button>
+						<% } else { %>
+						<input type="file" name="mainpic" class="form-control">
+						<% } %>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-3">
+						<input type="text" name="title" value="<%= post.title.ru %>" class="form-control" placeholder="заглавие" required>
+					</div>
+					<div class="form-group col-sm-3">
+						<input type="text" name="source" value="<%= post.mainpic.sourcelink %>" class="form-control" placeholder="источник">
+					</div>
+					<div class="form-group col-sm-3">
+						<input type="text" name="license" class="form-control" value="<%= post.mainpic.licenselink %>" placeholder="лицензия">
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-6">
+						<textarea class="form-control" name="desc" placeholder="небольшое описание" required><%= post.desc.ru %></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-12">
+						<label>длинное описание</label>
+						<div id="content" style="height: auto;"><%- post.content.ru %></div>
+						<textarea id="contentref" name="content" class="d-none"><%= post.content.ru %></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-sm-3">
+						<label for="categories">Categories:</label>
+						<select id="categories" name="categories" class="form-control" multiple>
+							<% for(var i=0; i<categories.length; i++) {%>
+							<option value="<%= categories[i]._id %>"
+									<% for(var j=0; j<post.catIds.length; j++) { %>
+									<% if(categories[i]._id == `${post.catIds[j]}`){ %>
+									selected
+									<% } %>
+									<% } %>
+							><%= categories[i].title %></option>
+							<% } %>
+						</select>
+					</div>
+					<div class="form-group col-sm-3 d-flex align-items-end">
+						<div class="custom-control custom-checkbox">
+							<input type="checkbox" class="custom-control-input" name="hide" id="hide" <% if(post.hide){ %>checked<% } %>>
+							<label class="custom-control-label" for="hide">Hide Post</label>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="card-footer">
+				<button type="submit" class="btn btn-success">добавить категорию</button>
+				<button type="reset" class="btn btn-danger">сброс</button>
+			</div>
+		</form>
+		<% } %>
 	</div>
 </div>
 
