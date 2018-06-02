@@ -164,7 +164,12 @@ router.get('/editpost/:id',User.checkAuth,(req,res)=>{
 // post requests
 router.post('/login', User.adminLogin);
 router.post('/addcategorie', User.checkAuth, Categorie.addCategorie);
-router.post('/addpost',User.checkAuth,Posts.addNew);
+router.post('/addpost',User.checkAuth,(req,res)=>{
+    Posts.addNew(req,res);
+});
+router.post('/editpost',User.checkAuth,(req,res)=>{
+    Posts.updatePost(req,res);
+});
 
 router.post('/editcategorie', User.checkAuth, (req, res) => {
     Categorie.editCategorie(req, res);

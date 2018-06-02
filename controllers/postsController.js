@@ -12,8 +12,7 @@ class Posts {
         posts.countall(cb);
     }
 
-    addNew(req, res) {
-
+    uploadmainpic(req,res,cb){
         let storage = multer.diskStorage({
             destination: function(req, file, callback) {
                 callback(null, './public/uploads');
@@ -34,7 +33,13 @@ class Posts {
             }
         }).single('mainpic');
 
-        upload(req, res, function(err) {
+        upload(req, res, (err) => {
+            cb(err);
+        });
+    }
+
+    addNew(req, res) {
+        this.uploadmainpic(req,res,(err)=>{
             if (err) {
                 console.log(err);
             } else {
@@ -52,20 +57,53 @@ class Posts {
                         if (!result.isEmpty()) {
                             res.json(result.array());
                         } else {
-                        	posts.addNew(req.body,(err,data)=>{
-                        		if(err){
-                        			console.log(err);
-                        		} else {
-                        			res.redirect('/admin/addpost');
-                        		}
-                        	})
+                            posts.addNew(req.body,(err,data)=>{
+                                if(err){
+                                    console.log(err);
+                                } else {
+                                    res.redirect('/admin/addpost');
+                                }
+                            });
                         }
 
                     });
 
             }
         });
+    }
 
+    updatePost(req,res){
+        this.uploadmainpic(req,res,(err)=>{
+            if (err) {
+                console.log(err);
+            } else {
+                if (req.file) {
+                    req.body.mainpic = {};
+                    req.body.mainpic.url = '/uploads/' + req.file.filename;
+                    req.body.mainpic.sourcelink = req.body.source;
+                    req.body.mainpic.licenselink = req.body.license;
+                }
+                req.checkBody('id','post id is required').notEmpty();
+                req.checkBody('title', 'title is required').notEmpty();
+                req.checkBody('desc', 'Description is required');
+                req.getValidationResult()
+                    .then((result) => {
+                        if (!result.isEmpty()) {
+                            res.json(result.array());
+                        } else {
+                            posts.updatePost(req.body,(err,data)=>{
+                                if(err){
+                                    console.log(err);
+                                } else {
+                                    res.redirect('/admin/editpost/' + data._id);
+                                }
+                            });
+                        }
+
+                    });
+
+            }
+        });
     }
 
     deletePost(req,res){
@@ -78,7 +116,17 @@ class Posts {
                     if(err){
                         console.log(err);
                     } else {
-                        res.json({success: true});
+                        if (post.mainpic.url.length > 0 && fs.existsSync(`public${post.mainpic.url}`)) {
+                            fs.unlink(`public${post.mainpic.url}`, (err)=>{
+                                if(err){
+                                    console.log(err);
+                                }else {
+                                    res.json({success: true});
+                                }
+                            });
+                        } else {
+                            res.json({success: true});
+                        }
                     }
                 });
             }
