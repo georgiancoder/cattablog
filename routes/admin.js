@@ -180,4 +180,14 @@ router.delete('/removepost',User.checkAuth,(req,res)=>{
     Posts.deletePost(req,res);
 });
 
+router.delete('/removepostimg',User.checkAuth,(req,res)=>{
+   Posts.deleteMainPic(req.body.id,(err)=>{
+      if(err){
+          console.log(err);
+      } else {
+          res.json({success: true});
+      }
+   });
+});
+
 module.exports = router;

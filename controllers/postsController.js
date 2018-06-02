@@ -90,6 +90,24 @@ class Posts {
             posts.getById(id,cb);
         }
     }
+
+    deleteMainPic(id,cb){
+        if (id) {
+            posts.updateMainPic(id,(err,data)=>{
+               if(err){
+                   console.log(err);
+               } else {
+                   if (data.mainpic.url.length > 0 && fs.existsSync(`public${data.mainpic.url}`)) {
+                       fs.unlink(`public${data.mainpic.url}`, cb);
+                   } else {
+                       cb(null);
+                   }
+               }
+            });
+        } else {
+            console.log('no data to delete');
+        }
+    }
 }
 
 module.exports = new Posts();

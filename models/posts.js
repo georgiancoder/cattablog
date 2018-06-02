@@ -83,3 +83,8 @@ module.exports.countall = function(cb) {
     let post = this;
     post.count(cb);
 };
+
+module.exports.updateMainPic = function (id, cb) {
+    let post = this;
+    post.findByIdAndUpdate(id,{"mainpic.url": ""},cb);
+};
