@@ -48,6 +48,11 @@ class Posts {
                     req.body.mainpic.url = '/uploads/' + req.file.filename;
                     req.body.mainpic.sourcelink = req.body.source;
                     req.body.mainpic.licenselink = req.body.license;
+                } else {
+                    req.body.mainpic = {};
+                    req.body.mainpic.url = '';
+                    req.body.mainpic.sourcelink = req.body.source;
+                    req.body.mainpic.licenselink = req.body.license;
                 }
 
                 req.checkBody('title', 'title is required').notEmpty();
@@ -78,8 +83,15 @@ class Posts {
                 console.log(err);
             } else {
                 if (req.file) {
+                    console.log('aqari');
                     req.body.mainpic = {};
                     req.body.mainpic.url = '/uploads/' + req.file.filename;
+                    req.body.mainpic.sourcelink = req.body.source;
+                    req.body.mainpic.licenselink = req.body.license;
+                } else {
+                    console.log('faili arari');
+                    req.body.mainpic = {};
+                    req.body.mainpic.url = '';
                     req.body.mainpic.sourcelink = req.body.source;
                     req.body.mainpic.licenselink = req.body.license;
                 }

@@ -84,7 +84,8 @@ module.exports.updatePost = function (data, cb) {
             ru: slug
         },
         hide: data.hide ? true : false,
-        catIds: categorieIds
+        catIds: categorieIds,
+        mainpic: data.mainpic
     },cb);
 };
 
