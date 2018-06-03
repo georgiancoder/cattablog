@@ -70,7 +70,19 @@ router.get('/',(req,res)=>{
 	});
 });
 
-
+router.get('/contact',(req,res)=>{
+    let opt = {
+        page: 'contact'
+    };
+    Categorie.getCategories((err,categories)=> {
+        if(err){
+            console.log(err);
+        } else {
+            opt.categories = categories;
+            res.render('./blog/contact',opt);
+        }
+    });
+});
 
 
 module.exports=router;
