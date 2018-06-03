@@ -89,9 +89,22 @@ module.exports.updatePost = function (data, cb) {
     },cb);
 };
 
+module.exports.random = function(cb){
+  let post = this;
+
+  post.countall((err, count)=>{
+      if(err){
+          console.log(err);
+      } else {
+        let rand = (Math.floor(Math.random() * (count - 10))) > 0 ? Math.floor(Math.random() * (count - 10)) : 0;
+        post.find({hide: false},cb).skip(rand).limit(10);
+      }
+  })
+};
+
 module.exports.getAll = function (page, cb) {
     let post = this;
-    post.find(cb).skip(page * 7).sort({createdate: -1}).limit(7);
+    post.find(cb).skip(page * 8).sort({createdate: -1}).limit(8);
 };
 
 module.exports.getById = function (id, cb) {

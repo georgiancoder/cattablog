@@ -8,6 +8,10 @@ class Posts {
         posts.getAll(page, cb);
     }
 
+    randomPosts(cb){
+        posts.random(cb);
+    }
+
     count(cb) {
         posts.countall(cb);
     }

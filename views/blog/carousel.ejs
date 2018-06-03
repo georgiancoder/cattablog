@@ -1,35 +1,15 @@
+<% if(rposts) { %>
 <section class="headerCarousel owl-carousel owl-theme">
+    <% rposts.forEach(function(rpost){ %>
     <section class="item">
-        <figure><img src="./assets/imgs/124044lpr.jpg" alt="" title=""></figure>
+        <figure><img src="<%= rpost.mainpic.url %>" alt="Изображение" title="<%= rpost.title.ru %>"></figure>
         <div>
-            <h2> <a href="">Бурманская кошка</a></h2>
+            <h2> <a href="/post/<%= rpost.slug.ru %>/<%= rpost._id %>"><%= rpost.title.ru %></a></h2>
             <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p><a href="">read more</a>
+                <%= rpost.desc.ru %>
+            </p><a href="/post/<%= rpost.slug.ru %>/<%= rpost._id %>">прочитайте больше</a>
         </div>
     </section>
-    <section class="item">
-        <figure><img src="./assets/imgs/124044lpr.jpg" alt="" title=""></figure>
-        <div>
-            <h2> <a href="">Бурманская кошка</a></h2>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p><a href="">read more</a>
-        </div>
-    </section>
-    <section class="item">
-        <figure><img src="./assets/imgs/124044lpr.jpg" alt="" title=""></figure>
-        <div>
-            <h2> <a href="">Бурманская кошка</a></h2>
-            <p>
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-                Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-                when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-            </p><a href="">read more</a>
-        </div>
-    </section>
+    <% }) %>
 </section>
+<% } %>

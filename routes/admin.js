@@ -115,9 +115,7 @@ router.get('/posts', User.checkAuth, (req, res) => {
                     opt.pagination = boostrapPaginator.render();
                     res.render('admin/posts', opt);
                 }
-            })
-            ;
-
+            });
         }
     })
     ;
