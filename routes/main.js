@@ -5,8 +5,8 @@ const Categorie = require('../controllers/categorieController');
 router.get('/',(req,res)=>{
 	let opt = {
 		page: 'home'
-	}
-	res.send('hello');
+	};
+	res.render('./blog/index',opt);
 
 });
 
