@@ -1,12 +1,18 @@
 <%- include('./header') %>
 
 <div class="container-fluid">
-	<h4>CATEGORIES</h4>
-	<ul class="list-group" id="categorieSort">
-		<% categories.forEach(function(cat){ %>
-			<li class="list-group-item"><i class="fa fa-bars"></i> <%= cat.title %> <div class="float-right"><a href="/admin/editcategory/<%= cat._id %>" class="btn btn-sm btn-primary">Edit</a> <button class="btn btn-sm btn-danger" onclick="deleteCategory('<%= cat._id %>')">Delete</button></div> </li>
-	 <%	}) %>
-	</ul>
+	<div class="card mt-3">
+		<div class="card-header">
+			<h4>CATEGORIES</h4>
+		</div>
+		<div class="card-body">
+			<ul class="list-group" id="categorieSort">
+				<% categories.forEach(function(cat){ %>
+				<li class="list-group-item"><i class="fa fa-bars"></i> <%= cat.title %> <div class="float-right"><a href="/admin/editcategory/<%= cat._id %>" class="btn btn-sm btn-primary">Edit</a> <button class="btn btn-sm btn-danger" onclick="deleteCategory('<%= cat._id %>')">Delete</button></div> </li>
+				<%	}) %>
+			</ul>
+		</div>
+	</div>
 </div>
 
 <%- include('./footer') %>
