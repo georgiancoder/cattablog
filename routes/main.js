@@ -70,6 +70,30 @@ router.get('/',(req,res)=>{
 	});
 });
 
+router.get('/post/:slug/:id',(req,res)=>{
+    let opt = {
+        page: 'innerpost'
+    };
+    if(req.params.slug && req.params.id) {
+        let id = req.params.id;
+        Categorie.getCategories((err,categories)=> {
+            if(err){
+                console.log(err);
+            } else {
+                opt.categories = categories;
+                Posts.getPostById(id,(err,post)=>{
+                   if(err){
+                       console.log(err);
+                   } else {
+                       opt.post = post;
+                       res.render('./blog/singlepost',opt);
+                   }
+                });
+            }
+        });
+    }
+});
+
 router.get('/contact',(req,res)=>{
     let opt = {
         page: 'contact'

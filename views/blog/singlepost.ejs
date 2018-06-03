@@ -1,0 +1,29 @@
+<%- include('header'); %>
+
+<main>
+    <section class="content">
+        <section class="innerPage">
+            <figure><img src="<%= post.mainpic.url %>" alt="Изображение" title="<%= post.title.ru %>"></figure>
+            <section class="innerPageHeade">
+                <div class="licSourc"><a href="<%= post.mainpic.sourcelink %>" target="_blank">Источник</a><a href="<%= post.mainpic.licenselink %>" target="_blank">Лицензия</a></div>
+                <div class="socIcons"><a href="#!"><img src="/assets/imgs/facebook.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/instagram.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/google-plus.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/twitter.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/vk.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/pinterest.png" alt="" title=""></a>
+                </div>
+            </section>
+            <div class="breadCrumbs">
+                <nav>
+                    <ul>
+                        <li><a href="/">главный</a></li>
+                        <li><%= post.title.ru %></li>
+                    </ul>
+                </nav>
+            </div>
+            <h1><%= post.title.ru %></h1>
+            <%- post.content.ru %>
+            <section class="innerBanner"><a href="#!"></a></section>
+        </section>
+    </section>
+    <%- include('aside'); %>
+</main>
+
+
+<%- include('footer'); %>
