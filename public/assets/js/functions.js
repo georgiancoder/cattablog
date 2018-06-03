@@ -6,7 +6,7 @@ $(function(){
         nav:true,
         autoplay: true,
         autoplayHoverPause: true,
-        navText:['<img src="img/left-arrow.png" />','<img src="img/right-arrow.png" />'],
+        navText:['<img src="./assets/imgs/left-arrow.png" />','<img src="./assets/imgs/right-arrow.png" />'],
         responsive:{
             0:{
                 items:1

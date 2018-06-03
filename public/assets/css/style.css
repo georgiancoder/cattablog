@@ -391,13 +391,13 @@ main {
             width: 100%; }
         main > aside.siteRigrhSide div.asideInner > section.banner.I {
           height: 250px;
-          background-image: url(../img/xmass.jpg); }
+          background-image: url(../imgs/xmass.jpg); }
         main > aside.siteRigrhSide div.asideInner > section.banner.II {
           height: 350px;
-          background-image: url(../img/2AE48BDB00000578-317696Coca-Cola.jpg); }
+          background-image: url(../imgs/2AE48BDB00000578-317696Coca-Cola.jpg); }
         main > aside.siteRigrhSide div.asideInner > section.banner.III {
           height: 200px;
-          background-image: url(../img/guide.png); }
+          background-image: url(../imgs/guide.png); }
       main > aside.siteRigrhSide div.asideInner > ul {
         margin: 10px 0 20px 0; }
         main > aside.siteRigrhSide div.asideInner > ul > li > a {
@@ -536,7 +536,7 @@ section.innerPage {
     height: 100px;
     -webkit-box-shadow: 0px 2px 3px -1px grey;
     box-shadow: 0px 2px 3px -1px grey;
-    background-image: url(../img/amazonweb-banner.jpg);
+    background-image: url(../imgs/amazonweb-banner.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -703,7 +703,7 @@ a.Contactlink {
   top: 200px;
   right: 30px;
   background-color: #d73e4e;
-  background-image: url(../img/email.png);
+  background-image: url(../imgs/email.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
