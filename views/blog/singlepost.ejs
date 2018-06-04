@@ -5,8 +5,15 @@
         <section class="innerPage">
             <figure><img src="<%= post.mainpic.url %>" alt="Изображение" title="<%= post.title.ru %>"></figure>
             <section class="innerPageHeade">
-                <div class="licSourc"><a href="<%= post.mainpic.sourcelink %>" target="_blank">Источник</a><a href="<%= post.mainpic.licenselink %>" target="_blank">Лицензия</a></div>
-                <div class="socIcons"><a href="#!"><img src="/assets/imgs/facebook.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/instagram.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/google-plus.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/twitter.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/vk.png" alt="" title=""></a><a href="#!"><img src="/assets/imgs/pinterest.png" alt="" title=""></a>
+                <div class="licSourc">
+                <a href="<%= post.mainpic.sourcelink %>" target="_blank">Источник</a><a href="<%= post.mainpic.licenselink %>" target="_blank">Лицензия</a></div>
+                <div class="socIcons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u=<%= url %>"><img src="/assets/imgs/facebook.png" alt="" title=""></a>
+                <div class="g-plus" data-action='share'></div>
+                <a class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="" data-hashtags="" data-via="cattaclub.com"><img src="/assets/imgs/twitter.png" alt="" title=""></a>
+                <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
+                <script>document.write(VK.Share.button(false,{type: "round", text: "Share"}));</script>
+                <a href='https://www.pinterest.com/pin/create/button/' data-pin-do="buttonBookmark"><img src="/assets/imgs/pinterest.png" alt="" title=""></a>
                 </div>
             </section>
             <div class="breadCrumbs">
@@ -25,5 +32,7 @@
     <%- include('aside'); %>
 </main>
 
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<script type="text/javascript" async defer src="//assets.pinterest.com/js/pinit.js"></script>
 
 <%- include('footer'); %>

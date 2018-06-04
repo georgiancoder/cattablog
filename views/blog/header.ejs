@@ -2,8 +2,27 @@
 <html>
     <head>
         <title>blog</title>
+        <script src='https://www.googletagmanager.com/gtag/js?id=UA-107846956-1'></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+
+              gtag('config', 'UA-107846956-1');
+
+        </script>
         <meta charset="UTF-8">
+        <meta property="fb:pages" content="937707419719463">
+        <meta name="description" content="">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="author" content="squad.ge">
+        <meta name='theme-color', content='#ffffff'>
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta property="og:url" content="<%= url %>">
+        <meta property="og:type" content="website">
+        <meta property="og:title" <% if(typeof post != 'undefined') { %> content="<%= post.title.ru %>" <% } else { %> content="blog.cattaclub.com" <% } %>>
+        <meta property="og:description" <% if(typeof post != 'undefined') { %> content="<%= post.desc.ru %>" <% } else { %> content="blog.cattaclub.com" <% } %>>
+        <meta property="og:image" <% if( typeof post != 'undefined' && post.mainpic.url && post.mainpic.url.length > 0) { %> content="<%= post.mainpic.url %>" <% } else { %> content="<%= originUrl + '/assets/imgs/cattaclub-logo.png' %>" <% } %>>
         <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/lightbox.min.css">

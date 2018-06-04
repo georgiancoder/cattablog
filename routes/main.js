@@ -5,8 +5,11 @@ const Posts = require('../controllers/postsController');
 const pagination = require('pagination');
 
 router.get('/',(req,res)=>{
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
 	let opt = {
-		page: 'home'
+		page: 'home',
+        url: fullUrl,
+        originUrl: req.protocol + '://' + req.get('host')
 	};
     let page = req.query.page ? req.query.page : 0;
 	Categorie.getCategories((err,categories)=>{
@@ -71,8 +74,11 @@ router.get('/',(req,res)=>{
 });
 
 router.get('/post/:slug/:id',(req,res)=>{
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     let opt = {
-        page: 'innerpost'
+        page: 'innerpost',
+        url: fullUrl,
+        originUrl: req.protocol + '://' + req.get('host')
     };
     if(req.params.slug && req.params.id) {
         let id = req.params.id;
@@ -95,8 +101,11 @@ router.get('/post/:slug/:id',(req,res)=>{
 });
 
 router.get('/contact',(req,res)=>{
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     let opt = {
-        page: 'contact'
+        page: 'contact',
+        url: fullUrl,
+        originUrl: req.protocol + '://' + req.get('host')
     };
     Categorie.getCategories((err,categories)=> {
         if(err){
