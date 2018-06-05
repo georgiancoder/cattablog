@@ -21,9 +21,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta property="og:url" content="<%= url %>">
         <meta property="og:type" content="website">
-        <meta property="og:title" <% if(typeof post != 'undefined') { %> content="<%= post.title.ru %>" <% } else { %> content="blog.cattaclub.com" <% } %>>
-        <meta property="og:description" <% if(typeof post != 'undefined') { %> content="<%= post.desc.ru %>" <% } else { %> content="blog.cattaclub.com" <% } %>>
-        <meta property="og:image" <% if( typeof post != 'undefined' && post.mainpic.url && post.mainpic.url.length > 0) { %> content="<%= post.mainpic.url %>" <% } else { %> content="<%= originUrl + '/assets/imgs/cattaclub-logo.png' %>" <% } %>>
+        <meta property="og:title" <% if(typeof post != 'undefined') { %> content="<%= post[0].title.ru %>" <% } else { %> content="blog.cattaclub.com" <% } %>>
+        <meta property="og:description" <% if(typeof post != 'undefined') { %> content="<%= post[0].desc.ru %>" <% } else { %> content="blog.cattaclub.com" <% } %>>
+        <meta property="og:image" <% if( typeof post != 'undefined' && post[0].mainpic.url && post[0].mainpic.url.length > 0) { %> content="<%= post[0].mainpic.url %>" <% } else { %> content="<%= originUrl + '/assets/imgs/cattaclub-logo.png' %>" <% } %>>
         <link rel="stylesheet" type="text/css" href="/assets/css/style.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/responsive.css">
         <link rel="stylesheet" type="text/css" href="/assets/css/lightbox.min.css">

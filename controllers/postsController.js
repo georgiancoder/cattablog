@@ -153,6 +153,12 @@ class Posts {
         }
     }
 
+    getPostData(id,cb){
+        if(id){
+            posts.postData(id,cb);
+        }
+    }
+
     deleteMainPic(id,cb){
         if (id) {
             posts.updateMainPic(id,(err,data)=>{

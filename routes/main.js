@@ -87,13 +87,13 @@ router.get('/post/:slug/:id',(req,res)=>{
                 console.log(err);
             } else {
                 opt.categories = categories;
-                Posts.getPostById(id,(err,post)=>{
-                   if(err){
-                       console.log(err);
-                   } else {
-                       opt.post = post;
-                       res.render('./blog/singlepost',opt);
-                   }
+                Posts.getPostData(id,(err,postData)=>{
+                    if(err){
+                        console.log(err);
+                    } else {
+                        opt.post = postData;
+                        res.render('./blog/singlepost',opt);
+                    }
                 });
             }
         });

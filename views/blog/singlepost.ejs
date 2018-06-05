@@ -3,30 +3,40 @@
 <main>
     <section class="content">
         <section class="innerPage">
-            <figure><img src="<%= post.mainpic.url %>" alt="Изображение" title="<%= post.title.ru %>"></figure>
+            <figure><img src="<%= post[0].mainpic.url %>" alt="Изображение" title="<%= post[0].title.ru %>"></figure>
             <section class="innerPageHeade">
                 <div class="licSourc">
-                <a href="<%= post.mainpic.sourcelink %>" target="_blank">Источник</a><a href="<%= post.mainpic.licenselink %>" target="_blank">Лицензия</a></div>
+                <a href="<%= post[0].mainpic.sourcelink %>" target="_blank">Источник</a><a href="<%= post[0].mainpic.licenselink %>" target="_blank">Лицензия</a></div>
                 <div class="socIcons">
                 <a href="https://www.facebook.com/sharer/sharer.php?u=<%= url %>"><img src="/assets/imgs/facebook.png" alt="" title=""></a>
                 <div class="g-plus" data-action='share'></div>
                 <a class="twitter-share-button" href="https://twitter.com/share" data-size="large" data-text="" data-hashtags="" data-via="cattaclub.com"><img src="/assets/imgs/twitter.png" alt="" title=""></a>
                 <script type="text/javascript" src="https://vk.com/js/api/share.js?95" charset="windows-1251"></script>
                 <script>document.write(VK.Share.button(false,{type: "round", text: "Share"}));</script>
-                <a href="https://www.pinterest.com/pin/create/button/" data-pin-description="<%= post.desc.ru %>" data-pin-media="<%= originUrl + post.mainpic.url %>"><img src="/assets/imgs/pinterest.png" alt="" title=""></a>
+                <a href="https://www.pinterest.com/pin/create/button/" data-pin-description="<%= post[0].desc.ru %>" data-pin-media="<%= originUrl + post[0].mainpic.url %>"><img src="/assets/imgs/pinterest.png" alt="" title=""></a>
                 </div>
             </section>
             <div class="breadCrumbs">
                 <nav>
                     <ul>
                         <li><a href="/">главный</a></li>
-                        <li><%= post.title.ru %></li>
+                        <li><%= post[0].title.ru %></li>
                     </ul>
                 </nav>
             </div>
-            <h1><%= post.title.ru %></h1>
-            <%- post.content.ru %>
+            <h1><%= post[0].title.ru %></h1>
+            <%- post[0].content.ru %>
             <section class="innerBanner"><a href="#!"></a></section>
+            <h3>Статьи по Теме</h3>
+            <section class="relatedArticles">
+                <% post[0].samePostsAgg.forEach(function(same){ %>
+                    <section class="relatedArticle">
+                      <figure><img src="<%= same.mainpic.url %>" alt="Изображение" title="<%= same.title.ru %>"></figure>
+                      <h2> <a href="/post/<%= same.slug.ru %>/<%= same._id %>"><%= same.title.ru %></a></h2>
+                    </section>
+                <% }); %>
+                
+            </section>
         </section>
     </section>
     <%- include('aside'); %>

@@ -112,6 +112,14 @@ module.exports.getById = function (id, cb) {
     post.findById(id, cb);
 };
 
+module.exports.postData = function(id, cb){
+    let post = this;
+    post.aggregate([{$match: {_id: mongoose.Types.ObjectId(id)} },
+        {$lookup: {from: 'blogposts', localField: 'catIds', foreignField: 'catIds', as: 'samePosts'} }, 
+        {$match: {"samePosts": {$exists: true}} }, 
+        {$project: {"mainpic": 1, "title": 1, "content": 1, "desc": 1, "samePostsAgg": {$slice: ["$samePosts", 3]} } }],cb);
+};
+
 module.exports.removePost = function (id, cb) {
     let post = this;
     post.findByIdAndRemove(id, cb);
