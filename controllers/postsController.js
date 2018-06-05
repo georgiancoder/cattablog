@@ -8,6 +8,10 @@ class Posts {
         posts.getAll(page, cb);
     }
 
+    getAllPost(page,cb){
+        posts.getAllPost(page,cb);
+    }
+
     randomPosts(cb){
         posts.random(cb);
     }

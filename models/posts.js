@@ -107,6 +107,11 @@ module.exports.getAll = function (page, cb) {
     post.find(cb).skip(page * 8).sort({createdate: -1}).limit(8);
 };
 
+module.exports.getAllPost = function (page, cb) {
+    let post = this;
+    post.find({hide:false},cb).skip(page * 8).sort({createdate: -1}).limit(8);
+};
+
 module.exports.getById = function (id, cb) {
     let post = this;
     post.findById(id, cb);

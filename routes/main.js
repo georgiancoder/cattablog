@@ -22,7 +22,7 @@ router.get('/',(req,res)=>{
 					console.log(err);
 				} else {
                     opt.rposts = rposts;
-                    Posts.getAll(page,(err, posts)=>{
+                    Posts.getAllPost(page,(err, posts)=>{
 						if(err){
 							console.log(err);
 						} else {
