@@ -3,10 +3,17 @@
 <main>
     <section class="content">
         <h2 class="contactHeader">контакт</h2>
-        <form class="contactUs" action="#!" method="post">
-            <input type="text" name="name" placeholder="имя">
-            <input type="email" name="email" placeholder="Электронная почта">
-            <textarea name="text" placeholder="сообщение"></textarea>
+        <% if(typeof errors != 'undefined' && errors.length > 0) { %>
+            <ul class="errors">
+            <% errors.forEach(function(error){ %>
+                <li><%= error.msg %></li>
+            <% }); %>
+            </ul>
+        <% } %>
+        <form class="contactUs" action="/email" method="post">
+            <input type="text" name="name" placeholder="имя" required>
+            <input type="email" name="email" placeholder="Электронная почта" required>
+            <textarea name="msg" placeholder="сообщение" required></textarea>
             <button type="submit">ОТПРАВИТЬ СООБЩЕНИЕ</button>
         </form>
     </section>

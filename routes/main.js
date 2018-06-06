@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Categorie = require('../controllers/categorieController');
 const Posts = require('../controllers/postsController');
+const MailController = require('../controllers/mailController');
 const pagination = require('pagination');
 
 router.get('/',(req,res)=>{
@@ -238,6 +239,43 @@ router.get('/search',(req,res)=>{
             });
             
         }
+    });
+});
+
+router.post('/email',(req,res)=>{
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    let opt = {
+        page: 'email',
+        url: fullUrl,
+        originUrl: req.protocol + '://' + req.get('host')
+    };
+    req.checkBody('name','Укажите имя').notEmpty();
+  req.checkBody('email','Введите адрес электронной почты').notEmpty();
+  req.checkBody('email','эл почта неправильная').isEmail()
+  req.checkBody('msg','Укажите сообщение').notEmpty();
+  req.getValidationResult().then(function(results){
+    if(!results.isEmpty()){
+        opt.errors = results.array()
+        Categorie.getCategories((err,categories)=> {
+        if(err){
+            console.log(err);
+        } else {
+            opt.categories = categories;
+            res.render('./blog/contact',opt);
+        }
+    });
+    }else{
+        MailController.mailer({
+                email: req.body.email,
+                subject: 'contact',
+                text: req.body.msg,
+                name: req.body.name,
+                html: req.body.msg
+              },(info)=>{
+                res.redirect('/contact');
+              });
+
+    }
     });
 });
 
