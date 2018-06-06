@@ -1,4 +1,5 @@
 const posts = require('../models/posts');
+const views = require('../models/views');
 const multer = require('multer');
 const path = require('path');
 const fs = require('fs');
@@ -155,6 +156,12 @@ class Posts {
                 });
             }
         })
+    }
+
+    increaseView(id,cb){
+        if (id) {
+            views.increase(id,cb);
+        }
     }
 
     getPostById(id,cb){

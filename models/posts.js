@@ -28,7 +28,6 @@ const blogpostSchema = mongoose.Schema({
     },
     createdate: {type: Date, default: Date.now},
     author: String,
-    views: [],
     catIds: [],
     hide: {type: Boolean, default: false}
 });

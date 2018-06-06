@@ -83,6 +83,13 @@ router.get('/post/:slug/:id',(req,res)=>{
     };
     if(req.params.slug && req.params.id) {
         let id = req.params.id;
+        Posts.increaseView(id,(err,view)=>{
+            if(err){
+                console.log(err);
+            } else {
+                console.log(`view increased ${view}`);
+            }
+        });
         Categorie.getCategories((err,categories)=> {
             if(err){
                 console.log(err);
