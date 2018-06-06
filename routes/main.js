@@ -185,6 +185,7 @@ router.get('/category/:id',(req,res)=>{
 
 router.get('/search',(req,res)=>{
     let srchPattern = req.query.srch;
+    let page = req.query.page ? req.query.page : 0;
     let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
     let opt = {
         page: 'search',
@@ -196,11 +197,42 @@ router.get('/search',(req,res)=>{
             console.log(err);
         } else {
             opt.categories = categories;
-            Posts.search(srchPattern,(err,searchData)=>{
+            Posts.search(page,srchPattern,(err,searchData)=>{
                 if(err){
                     console.log(err);
                 } else {
                     opt.searchData = searchData;
+                    var boostrapPaginator = new pagination.TemplatePaginator({
+                                prelink:'/search/?srch='+srchPattern, current: page, rowsPerPage: 7,
+                                totalResult: (searchData.length) ? searchData[0].postCount : 0, slashSeparator: false,
+                                template: function(result) {
+                                    var i, len, prelink;
+                                    var html = '<ul class="pagination">';
+                                    if(result.pageCount < 2) {
+                                        html += '</ul></div>';
+                                        return html;
+                                    }
+                                    prelink = this.preparePreLink(result.prelink);
+                                    if(result.previous) {
+                                        html += '<li><a href="' + prelink + result.previous + '"><img src="/assets/imgs/left-arrows.png" alt="Предыдущая страница" title="Предыдущая страница"></a></li>';
+                                    }
+                                    if(result.range.length) {
+                                        for( i = 0, len = result.range.length; i < len; i++) {
+                                            if(result.range[i]-1 === result.current) {
+                                                html += '<li><a href="' + prelink + (result.range[i]-1) + '" class="active">' + (result.range[i]) + '</a></li>';
+                                            } else {
+                                                html += '<li><a href="' + prelink + (result.range[i]-1) + '">' + (result.range[i]) + '</a></li>';
+                                            }
+                                        }
+                                    }
+                                    if(result.next) {
+                                        html += '<li><a href="' + prelink + result.next + '" class="paginator-next"><img src="/assets/imgs/right-arrows.png" alt="следущая страница" title="следущая страница"></a></li>';
+                                    }
+                                    html += '</ul>';
+                                    return html;
+                                }
+                            });
+                            opt.pagination = boostrapPaginator.render();
                     res.render('./blog/search',opt);
                 }
             });

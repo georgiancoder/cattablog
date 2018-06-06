@@ -16,9 +16,9 @@ class Posts {
         posts.random(cb);
     }
 
-    search(pattern, cb){
+    search(page, pattern, cb){
         if(pattern){
-            posts.search(pattern,cb);
+            posts.search(page,pattern,cb);
         }
     }
 

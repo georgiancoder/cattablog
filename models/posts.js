@@ -165,8 +165,27 @@ module.exports.updateMainPic = function (id, cb) {
     post.findByIdAndUpdate(id, {"mainpic.url": ""}, cb);
 };
 
-module.exports.search = function(pattern, cb){
+module.exports.search = function(page,pattern, cb){
     let post = this;
     pattern = new RegExp(pattern,'gmi');
-    post.find({$or: [{"title.ru": {$regex: pattern}},{"content.ru": {$regex: pattern}}]},cb);
+    post.aggregate([
+    {
+        $match: {hide: false, $or: [{"title.ru": {$regex: pattern}},{"content.ru": {$regex: pattern}}]}
+    },
+    {
+        $project: {title: 1, desc: 1, content: 1, mainpic: 1, slug: 1}
+    },
+    {
+        $skip: (page * 8)
+    },
+    {
+        $sort: {createdate: -1}
+    },
+    {
+        $limit: 8
+    },
+    {
+        $group: {_id: null, postCount: {$sum: 1}, posts: {$push: '$$ROOT'} }
+    }
+    ],cb);
 }

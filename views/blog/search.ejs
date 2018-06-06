@@ -2,7 +2,8 @@
 
 <main>
 	<section class="content">
-		<% searchData.forEach(function(post){ %>
+        <% if(searchData.length > 0) { %>
+		<% searchData[0].posts.forEach(function(post){ %>
         <section class="postPreview">
             <figure><img src="<%= post.mainpic.url %>" alt="Изображение" title="<%= post.title.ru %>"></figure>
             <h2><a href="/post/<%= post.slug.ru %>/<%= post._id %>"><%= post.title.ru %></a></h2>
@@ -11,6 +12,10 @@
             </p><a href="/post/<%= post.slug.ru %>/<%= post._id %>">больше</a>
         </section>
         <% }) %>
+        <%- pagination %>
+        <% } else { %>
+            статьи не найдены
+        <% } %>
 	</section>
 	<%- include('aside'); %>
 </main>
