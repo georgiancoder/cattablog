@@ -163,6 +163,12 @@ class Posts {
         }
     }
 
+    getPostByCategorie(page, catId,cb){
+        if(catId){
+            posts.getPostsByCat(page, catId,cb);
+        }
+    }
+
     deleteMainPic(id,cb){
         if (id) {
             posts.updateMainPic(id,(err,data)=>{

@@ -130,6 +130,31 @@ module.exports.removePost = function (id, cb) {
     post.findByIdAndRemove(id, cb);
 };
 
+module.exports.getPostsByCat = function(page, catId, cb){
+    let post = this;
+    // post.find({catIds: catId, hide:false},cb).skip(page * 8).sort({createdate: -1}).limit(8);
+    post.aggregate([
+    {
+        $match: {hide: false, catIds: catId}
+    },
+    {
+        $project: {title: 1, desc: 1, content: 1, mainpic: 1, slug: 1}
+    },
+    {
+        $skip: (page * 8)
+    },
+    {
+        $sort: {createdate: -1}
+    },
+    {
+        $limit: 8
+    },
+    {
+        $group: {_id: null, postCount: {$sum: 1}, posts: {$push: '$$ROOT'} }
+    }
+    ], cb);
+};
+
 module.exports.countall = function (cb) {
     let post = this;
     post.count(cb);
