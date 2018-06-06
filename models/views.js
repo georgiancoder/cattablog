@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const viewsSchema = mongoose.Schema({
-	postId: {type: String, unique: true},
+	postId: {type: mongoose.Schema.ObjectId, unique: true},
 	views: {type: Number, default: 0}
 });
 
@@ -22,4 +22,10 @@ module.exports.increase = function(id,cb){
 			}			
 		}
 	});
+}
+
+
+module.exports.popular = function(cb){
+	let view = this;
+	view.aggregate([{$sort: {views: -1}},{$limit: 5},{$lookup: {from: 'blogposts', localField: 'postId', foreignField: '_id', as: 'postDetails'} }, {$project: {views: 1, "postDetails.title": 1, "postDetails.slug": 1, "postDetails._id": 1} }],cb);
 }

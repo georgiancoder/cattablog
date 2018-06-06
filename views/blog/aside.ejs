@@ -10,13 +10,13 @@
         </ul>
         <section class="banner II"><a href="#!"></a></section>
         <h3>САМЫЙ ПОПУЛЯРНЫЙ</h3>
+        <% if(typeof popular != 'undefined'){ %>
         <ul class="popular">
-            <li><a href="#!">some link</a></li>
-            <li><a href="#!">some link</a></li>
-            <li><a href="#!">some link</a></li>
-            <li><a href="#!">some link</a></li>
-            <li><a href="#!">some link</a></li>
+            <% popular.forEach(function(p){ %>
+                <li><a href="/post/<%= p.postDetails[0].slug.ru %>/<%= p.postDetails[0]._id %>"><%= p.postDetails[0].title.ru %></a></li>
+            <% }); %>
         </ul>
+        <% } %>
         <section class="banner III"><a href="#!"></a></section>
     </div>
     <% } %>

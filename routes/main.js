@@ -63,7 +63,14 @@ router.get('/',(req,res)=>{
                                     });
                                     opt.posts = posts;
                                     opt.pagination = boostrapPaginator.render();
-                                    res.render('./blog/index',opt);
+                                    Posts.getPopular((err,popular)=>{
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            opt.popular = popular;
+                                            res.render('./blog/index',opt);
+                                        }
+                                    });
                                 }
                             });
 						}
@@ -86,8 +93,6 @@ router.get('/post/:slug/:id',(req,res)=>{
         Posts.increaseView(id,(err,view)=>{
             if(err){
                 console.log(err);
-            } else {
-                console.log(`view increased ${view}`);
             }
         });
         Categorie.getCategories((err,categories)=> {
@@ -100,13 +105,22 @@ router.get('/post/:slug/:id',(req,res)=>{
                         console.log(err);
                     } else {
                         opt.post = postData;
-                        res.render('./blog/singlepost',opt);
+                        Posts.getPopular((err,popular)=>{
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            opt.popular = popular;
+                                            res.render('./blog/singlepost',opt);
+                                        }
+                                    });
+                        
                     }
                 });
             }
         });
     }
 });
+
 
 router.get('/contact',(req,res)=>{
     let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
@@ -120,7 +134,15 @@ router.get('/contact',(req,res)=>{
             console.log(err);
         } else {
             opt.categories = categories;
-            res.render('./blog/contact',opt);
+             Posts.getPopular((err,popular)=>{
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            opt.popular = popular;
+                                            res.render('./blog/contact',opt);
+                                        }
+                                    });
+            
         }
     });
 });
@@ -181,7 +203,15 @@ router.get('/category/:id',(req,res)=>{
                             });
                             opt.posts = posts;
                             opt.pagination = boostrapPaginator.render();
-                            res.render('./blog/category',opt);
+                            
+                            Posts.getPopular((err,popular)=>{
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            opt.popular = popular;
+                                            res.render('./blog/category',opt);
+                                        }
+                                    });
                         }
                     });
                 }
@@ -241,7 +271,15 @@ router.get('/search',(req,res)=>{
                                 }
                             });
                             opt.pagination = boostrapPaginator.render();
-                    res.render('./blog/search',opt);
+                    
+                     Posts.getPopular((err,popular)=>{
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            opt.popular = popular;
+                                            res.render('./blog/search',opt);
+                                        }
+                                    });
                 }
             });
             
@@ -268,7 +306,15 @@ router.post('/email',(req,res)=>{
             console.log(err);
         } else {
             opt.categories = categories;
-            res.render('./blog/contact',opt);
+            
+            Posts.getPopular((err,popular)=>{
+                                        if(err){
+                                            console.log(err);
+                                        } else {
+                                            opt.popular = popular;
+                                            res.render('./blog/contact',opt);
+                                        }
+                                    });
         }
     });
     }else{

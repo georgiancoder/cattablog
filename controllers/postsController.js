@@ -9,6 +9,10 @@ class Posts {
         posts.getAll(page, cb);
     }
 
+    getPopular(cb){
+        views.popular(cb);
+    }
+
     getAllPost(page,cb){
         posts.getAllPost(page,cb);
     }
