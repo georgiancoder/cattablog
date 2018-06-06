@@ -183,5 +183,30 @@ router.get('/category/:id',(req,res)=>{
     }
 });
 
+router.get('/search',(req,res)=>{
+    let srchPattern = req.query.srch;
+    let fullUrl = req.protocol + '://' + req.get('host') + req.originalUrl;
+    let opt = {
+        page: 'search',
+        url: fullUrl,
+        originUrl: req.protocol + '://' + req.get('host')
+    };
+    Categorie.getCategories((err,categories)=> {
+        if(err){
+            console.log(err);
+        } else {
+            opt.categories = categories;
+            Posts.search(srchPattern,(err,searchData)=>{
+                if(err){
+                    console.log(err);
+                } else {
+                    opt.searchData = searchData;
+                    res.render('./blog/search',opt);
+                }
+            });
+            
+        }
+    });
+});
 
 module.exports=router;

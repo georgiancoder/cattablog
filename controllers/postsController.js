@@ -16,6 +16,12 @@ class Posts {
         posts.random(cb);
     }
 
+    search(pattern, cb){
+        if(pattern){
+            posts.search(pattern,cb);
+        }
+    }
+
     count(cb) {
         posts.countall(cb);
     }

@@ -1,0 +1,18 @@
+<%- include('header'); %>
+
+<main>
+	<section class="content">
+		<% searchData.forEach(function(post){ %>
+        <section class="postPreview">
+            <figure><img src="<%= post.mainpic.url %>" alt="Изображение" title="<%= post.title.ru %>"></figure>
+            <h2><a href="/post/<%= post.slug.ru %>/<%= post._id %>"><%= post.title.ru %></a></h2>
+            <p>
+                <%= post.desc.ru %>
+            </p><a href="/post/<%= post.slug.ru %>/<%= post._id %>">больше</a>
+        </section>
+        <% }) %>
+	</section>
+	<%- include('aside'); %>
+</main>
+
+<%- include('footer'); %>

@@ -164,3 +164,9 @@ module.exports.updateMainPic = function (id, cb) {
     let post = this;
     post.findByIdAndUpdate(id, {"mainpic.url": ""}, cb);
 };
+
+module.exports.search = function(pattern, cb){
+    let post = this;
+    pattern = new RegExp(pattern,'gmi');
+    post.find({$or: [{"title.ru": {$regex: pattern}},{"content.ru": {$regex: pattern}}]},cb);
+}
