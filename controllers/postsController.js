@@ -9,42 +9,41 @@ class Posts {
         posts.getAll(page, cb);
     }
 
-    getPopular(cb){
+    getPopular(cb) {
         views.popular(cb);
     }
 
-    getAllPost(page,cb){
-        posts.getAllPost(page,cb);
+    getAllPost(page, cb) {
+        posts.getAllPost(page, cb);
     }
 
-    randomPosts(cb){
+    randomPosts(cb) {
         posts.random(cb);
     }
 
-    search(page, pattern, cb){
-        if(pattern){
-            posts.search(page,pattern,cb);
-        }
+    search(page, pattern, cb) {
+        pattern = pattern ? pattern : '';
+        posts.search(page, pattern, cb);
     }
 
     count(cb) {
         posts.countall(cb);
     }
 
-    uploadmainpic(req,res,cb){
+    uploadmainpic(req, res, cb) {
         let storage = multer.diskStorage({
-            destination: function(req, file, callback) {
+            destination: function (req, file, callback) {
                 callback(null, './public/uploads');
             },
-            filename: function(req, file, callback) {
+            filename: function (req, file, callback) {
                 callback(null, file.fieldname + '-' + Date.now() + file.originalname);
             }
         });
 
         let upload = multer({
             storage: storage,
-            limits: { fileSize: 4 * 1024 * 1024 },
-            fileFilter: function(req, file, cb) {
+            limits: {fileSize: 4 * 1024 * 1024},
+            fileFilter: function (req, file, cb) {
                 if (path.extname(file.originalname) !== ".png" && path.extname(file.originalname) !== ".jpg" && path.extname(file.originalname) !== ".jpeg") {
                     return cb(new Error('only png or jpg'));
                 }
@@ -58,7 +57,7 @@ class Posts {
     }
 
     addNew(req, res) {
-        this.uploadmainpic(req,res,(err)=>{
+        this.uploadmainpic(req, res, (err) => {
             if (err) {
                 console.log(err);
             } else {
@@ -81,8 +80,8 @@ class Posts {
                         if (!result.isEmpty()) {
                             res.json(result.array());
                         } else {
-                            posts.addNew(req.body,(err,data)=>{
-                                if(err){
+                            posts.addNew(req.body, (err, data) => {
+                                if (err) {
                                     console.log(err);
                                 } else {
                                     res.redirect('/admin/addpost');
@@ -96,8 +95,8 @@ class Posts {
         });
     }
 
-    updatePost(req,res){
-        this.uploadmainpic(req,res,(err)=>{
+    updatePost(req, res) {
+        this.uploadmainpic(req, res, (err) => {
             if (err) {
                 console.log(err);
             } else {
@@ -112,7 +111,7 @@ class Posts {
                     req.body.mainpic.sourcelink = req.body.source;
                     req.body.mainpic.licenselink = req.body.license;
                 }
-                req.checkBody('id','post id is required').notEmpty();
+                req.checkBody('id', 'post id is required').notEmpty();
                 req.checkBody('title', 'title is required').notEmpty();
                 req.checkBody('desc', 'Description is required');
                 req.getValidationResult()
@@ -120,8 +119,8 @@ class Posts {
                         if (!result.isEmpty()) {
                             res.json(result.array());
                         } else {
-                            posts.updatePost(req.body,(err,data)=>{
-                                if(err){
+                            posts.updatePost(req.body, (err, data) => {
+                                if (err) {
                                     console.log(err);
                                 } else {
                                     res.redirect('/admin/editpost/' + data._id);
@@ -135,21 +134,21 @@ class Posts {
         });
     }
 
-    deletePost(req,res){
-        req.checkBody('id','id is required').notEmpty();
-        req.getValidationResult().then(result =>{
-            if(!result.isEmpty()){
+    deletePost(req, res) {
+        req.checkBody('id', 'id is required').notEmpty();
+        req.getValidationResult().then(result => {
+            if (!result.isEmpty()) {
                 res.json(result.array());
-            }else{
-                posts.removePost(req.body.id,(err,post)=>{
-                    if(err){
+            } else {
+                posts.removePost(req.body.id, (err, post) => {
+                    if (err) {
                         console.log(err);
                     } else {
                         if (post.mainpic.url.length > 0 && fs.existsSync(`public${post.mainpic.url}`)) {
-                            fs.unlink(`public${post.mainpic.url}`, (err)=>{
-                                if(err){
+                            fs.unlink(`public${post.mainpic.url}`, (err) => {
+                                if (err) {
                                     console.log(err);
-                                }else {
+                                } else {
                                     res.json({success: true});
                                 }
                             });
@@ -162,42 +161,42 @@ class Posts {
         })
     }
 
-    increaseView(id,cb){
+    increaseView(id, cb) {
         if (id) {
-            views.increase(id,cb);
+            views.increase(id, cb);
         }
     }
 
-    getPostById(id,cb){
-        if(id){
-            posts.getById(id,cb);
-        }
-    }
-
-    getPostData(id,cb){
-        if(id){
-            posts.postData(id,cb);
-        }
-    }
-
-    getPostByCategorie(page, catId,cb){
-        if(catId){
-            posts.getPostsByCat(page, catId,cb);
-        }
-    }
-
-    deleteMainPic(id,cb){
+    getPostById(id, cb) {
         if (id) {
-            posts.updateMainPic(id,(err,data)=>{
-               if(err){
-                   console.log(err);
-               } else {
-                   if (data.mainpic.url.length > 0 && fs.existsSync(`public${data.mainpic.url}`)) {
-                       fs.unlink(`public${data.mainpic.url}`, cb);
-                   } else {
-                       cb(null);
-                   }
-               }
+            posts.getById(id, cb);
+        }
+    }
+
+    getPostData(id, cb) {
+        if (id) {
+            posts.postData(id, cb);
+        }
+    }
+
+    getPostByCategorie(page, catId, cb) {
+        if (catId) {
+            posts.getPostsByCat(page, catId, cb);
+        }
+    }
+
+    deleteMainPic(id, cb) {
+        if (id) {
+            posts.updateMainPic(id, (err, data) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    if (data.mainpic.url.length > 0 && fs.existsSync(`public${data.mainpic.url}`)) {
+                        fs.unlink(`public${data.mainpic.url}`, cb);
+                    } else {
+                        cb(null);
+                    }
+                }
             });
         } else {
             console.log('no data to delete');
