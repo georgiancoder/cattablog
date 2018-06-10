@@ -5,6 +5,7 @@ const User = require('../controllers/usersController');
 const Posts = require('../controllers/postsController');
 const pagination = require('pagination');
 
+
 // get requests
 router.get('/', (req, res) => {
     let opt = {
