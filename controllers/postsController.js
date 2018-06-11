@@ -225,13 +225,12 @@ class Posts {
         }
     }
 
-    deleteMainPic(id, cb) {
-        if (id) {
+    deleteMainPic(id,filename, cb) {
+        if (id && filename) {
             posts.updateMainPic(id, (err, data) => {
                 if (err) {
                     console.log(err);
                 } else {
-                    let filename = post.mainpic.url.match(/\/[^/]*$/)[0].substr(1);
                     let gcstorage = GoogleCloudStorage({
                         projectId: 'cattablog-206608',
                         keyFilename: './config/cattablog-keyfile.json'
@@ -241,11 +240,10 @@ class Posts {
                         .file(filename)
                         .delete()
                         .then(() => {
-                            console.log('file deleted');
-                            res.json({success: true});
+                            cb(null);
                         })
                         .catch(err => {
-                            console.error('ERROR:', err);
+                            cb(err);
                         });
                 }
             });

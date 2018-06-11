@@ -185,7 +185,7 @@ router.delete('/removepost',User.checkAuth,(req,res)=>{
 });
 
 router.delete('/removepostimg',User.checkAuth,(req,res)=>{
-   Posts.deleteMainPic(req.body.id,(err)=>{
+   Posts.deleteMainPic(req.body.id,req.body.filename,(err)=>{
       if(err){
           console.log(err);
       } else {

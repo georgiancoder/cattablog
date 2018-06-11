@@ -74,7 +74,7 @@
 						<% if(post.mainpic.url && post.mainpic.url.length > 0){ %>
 						<input type="hidden" name="mainpicurl" value="<%= post.mainpic.url %>">
 						<img src="<%= post.mainpic.url %>" width="200">
-						<button type="button" class="btn btn-danger" onclick="deletePostMainImg('<%= post._id %>')">Delete Main Image</button>
+						<button type="button" class="btn btn-danger" onclick="deletePostMainImg('<%= post._id %>','<%= post.mainpic.url.match(/\/[^/]*$/)[0].substr(1) %>')">Delete Main Image</button>
 						<% } else { %>
 						<input type="file" name="mainpic" class="form-control">
 						<% } %>

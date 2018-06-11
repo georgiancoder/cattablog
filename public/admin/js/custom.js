@@ -37,10 +37,10 @@ function deletePost(id) {
     });
 }
 
-function deletePostMainImg(id) {
+function deletePostMainImg(id, filename) {
     $.ajax({
         url: '/admin/removepostimg',
-        data: {id: id},
+        data: {id: id, filename: filename},
         type: 'DELETE',
         success: function(msg){
             if(msg && msg.success){
